@@ -72,6 +72,8 @@ gallery:
   thumbnail_size:
     x: 400                  # max width of thumbnails (in pixels)
     y: 400                  # max height of thumbnails (in pixels)
+  watermark_enabled: false  # Add copyright watermark to thumbnails
+  watermark_text: "(c) Author"  # Text to use for watermark (positioned in bottom right corner)
   # The following options are for individual galleries.
   galleries:
     chile_trip:

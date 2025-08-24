@@ -132,6 +132,22 @@ module Jekyll
   class GalleryPage < ReadYamlPage
     attr_reader :hidden
 
+    def apply_watermark(image, watermark_text)
+      # Create a watermark using RMagick text annotation
+      # Position it in the bottom right corner with some padding
+      image.annotate(Draw.new) do |draw|
+        draw.gravity = SouthEastGravity
+        draw.pointsize = 12
+        draw.font_family = 'Arial'
+        draw.font_weight = BoldWeight
+        draw.fill = 'white'
+        draw.stroke = 'black'
+        draw.stroke_width = 0.5
+        draw.text(5, 5, watermark_text)
+      end
+      image
+    end
+
     def initialize(site, base, dir, gallery_name)
       @site = site
       @base = base
@@ -147,6 +163,10 @@ module Jekyll
       max_size_y = 400
       symlink = config["symlink"] || false
       scale_method = config["scale_method"] || "fit"
+      
+      # Watermark configuration
+      watermark_enabled = config["watermark_enabled"] || false
+      watermark_text = config["watermark_text"] || "(c) Author"
       begin
         max_size_x = config["thumbnail_size"]["x"]
       rescue Exception
@@ -222,6 +242,12 @@ module Jekyll
             m_image = ImageList.new(image.path)
             m_image.auto_orient!
             m_image.send("resize_to_#{scale_method}!", max_size_x, max_size_y)
+            
+            # Apply watermark if enabled
+            if watermark_enabled
+              m_image = apply_watermark(m_image, watermark_text)
+            end
+            
             puts "Writing thumbnail to #{thumb_path}"
             m_image.write(thumb_path)
           rescue Exception => e
