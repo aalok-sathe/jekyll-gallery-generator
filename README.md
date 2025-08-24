@@ -91,6 +91,18 @@ gallery:
         desc: "Gallery Description" # Info fields can be used in custom templates.
 ```
 
+## Watermark Feature
+
+You can add a copyright watermark to all thumbnail images. The watermark is positioned in the bottom-right corner of each thumbnail with a white text and black outline for visibility. To enable watermarks:
+
+```yaml
+gallery:
+  watermark_enabled: true
+  watermark_text: "(c) 2024 Your Name"
+```
+
+The watermark is applied during thumbnail generation and only affects the thumbnail images, not the original full-size images.
+
 
 ## Overriding layouts
 
