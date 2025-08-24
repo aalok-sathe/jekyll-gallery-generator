@@ -135,7 +135,7 @@ module Jekyll
     def apply_watermark(image, watermark_text)
       # Create a watermark using RMagick text annotation
       # Position it in the bottom right corner with some padding
-      image.annotate(Draw.new) do |draw|
+      image.annotate do |draw|
         draw.gravity = SouthEastGravity
         draw.pointsize = 12
         draw.font_family = 'Arial'
