@@ -72,6 +72,8 @@ gallery:
   thumbnail_size:
     x: 400                  # max width of thumbnails (in pixels)
     y: 400                  # max height of thumbnails (in pixels)
+  watermark_enabled: false  # Add copyright watermark to thumbnails
+  watermark_text: "(c) Author"  # Text to use for watermark (positioned in bottom right corner)
   # The following options are for individual galleries.
   galleries:
     chile_trip:
@@ -88,6 +90,18 @@ gallery:
       info:
         desc: "Gallery Description" # Info fields can be used in custom templates.
 ```
+
+## Watermark Feature
+
+You can add a copyright watermark to all thumbnail images. The watermark is positioned in the bottom-right corner of each thumbnail with a white text and black outline for visibility. To enable watermarks:
+
+```yaml
+gallery:
+  watermark_enabled: true
+  watermark_text: "(c) 2024 Your Name"
+```
+
+The watermark is applied during thumbnail generation and only affects the thumbnail images, not the original full-size images.
 
 
 ## Overriding layouts
