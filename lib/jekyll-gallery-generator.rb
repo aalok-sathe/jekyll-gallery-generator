@@ -132,21 +132,15 @@ module Jekyll
   class GalleryPage < ReadYamlPage
     attr_reader :hidden
 
-    def apply_watermark(image, watermark_text)
-      # Create a watermark using RMagick text annotation
-      # Position it in the bottom right corner with some padding
-      image.annotate do |draw|
-        draw.gravity = SouthEastGravity
-        draw.pointsize = 12
-        draw.font_family = 'Arial'
-        draw.font_weight = BoldWeight
-        draw.fill = 'white'
-        draw.stroke = 'black'
-        draw.stroke_width = 0.5
-        draw.text(5, 5, watermark_text)
-      end
-      image
-    end
+    # def apply_watermark(image, watermark_text)
+    #   # Create a watermark using RMagick text annotation
+    #   # Position it in the bottom right corner with some padding
+    #   image.each do |img|
+        
+    #     end
+    #   end
+    #   image
+    # end
 
     def initialize(site, base, dir, gallery_name)
       @site = site
@@ -245,7 +239,15 @@ module Jekyll
             
             # Apply watermark if enabled
             if watermark_enabled
-              m_image = apply_watermark(m_image, watermark_text)
+              m_image.annotate(Magick::Draw.new, 0, 0, 0, 0, watermark_text) do |draw|
+                draw.gravity = Magick::SouthEastGravity
+                draw.pointsize = 20
+                draw.font_family = 'Helvetica'
+                draw.font_weight = Magick::BoldWeight
+                draw.fill = 'white'
+                draw.stroke = 'black'
+                draw.stroke_width = 1
+              end
             end
             
             puts "Writing thumbnail to #{thumb_path}"
